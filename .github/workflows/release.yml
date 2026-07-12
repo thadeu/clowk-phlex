@@ -1,0 +1,84 @@
+# Release pipeline — fires on a `vX.Y.Z` tag. Builds the (gitignored) dist,
+# runs both test suites, publishes the gem + npm package, and attaches the
+# packaged artifacts to the GitHub release.
+#
+# Secrets required:
+#   RUBYGEMS_API_KEY  — RubyGems push key
+#   NPM_TOKEN         — npm automation token (publish)
+#
+# NOTE: gem/ and npm/ are scaffold-empty right now, so this workflow is the
+# intended pipeline, wired but not yet exercised. It goes live once Phase 1+
+# fills the packages.
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write # create the GitHub release
+  id-token: write # npm provenance
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync VERSION from tag
+        run: echo "${GITHUB_REF_NAME#v}" > VERSION
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4.2"
+          bundler-cache: true
+          working-directory: gem
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+          cache: pnpm
+          cache-dependency-path: npm/pnpm-lock.yaml
+
+      # ── Build ─────────────────────────────────────────────────────────────
+      - name: Build npm (JS bundle + precompiled CSS)
+        working-directory: npm
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build   # bundles src/** and scans ../gem/lib/**/*.rb → dist/clowk-phlex.css
+
+      # ── Test ──────────────────────────────────────────────────────────────
+      - name: Test gem
+        working-directory: gem
+        run: bundle exec rspec
+
+      - name: Test npm
+        working-directory: npm
+        run: pnpm test
+
+      # ── Publish ───────────────────────────────────────────────────────────
+      - name: Publish gem → RubyGems
+        working-directory: gem
+        env:
+          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: |
+          gem build clowk-phlex.gemspec
+          gem push clowk-phlex-*.gem
+
+      - name: Publish package → npm
+        working-directory: npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public
+
+      # ── GitHub release with packaged artifacts ────────────────────────────
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            gem/clowk-phlex-*.gem
+            npm/dist/**
