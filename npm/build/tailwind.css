@@ -1,0 +1,17 @@
+/*
+ * CSS build entry for @clowk/phlex.
+ *
+ * Compiles a self-contained dist/clowk-phlex.css by:
+ *   1. pulling in Tailwind v4,
+ *   2. importing the gem's design tokens (@theme + --clowk-* palette),
+ *   3. scanning the gem's Phlex components for the utility classes they emit.
+ *
+ * This is why the repo is a monorepo — @source reaches across into ../../gem/lib
+ * so the build sees the Ruby components. Consumers import the compiled result
+ * and need no Tailwind @source of their own.
+ */
+
+@import "tailwindcss";
+@import "../../gem/styles/clowk-phlex.css";
+
+@source "../../gem/lib/**/*.rb";

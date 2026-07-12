@@ -6,9 +6,8 @@
 #   RUBYGEMS_API_KEY  — RubyGems push key
 #   NPM_TOKEN         — npm automation token (publish)
 #
-# NOTE: gem/ and npm/ are scaffold-empty right now, so this workflow is the
-# intended pipeline, wired but not yet exercised. It goes live once Phase 1+
-# fills the packages.
+# Both packages are populated (gem: Phlex components; npm: controllers + CSS
+# build). Pushing a vX.Y.Z tag runs it; publish steps need the two secrets set.
 name: release
 
 on:

@@ -1,0 +1,46 @@
+{
+  "name": "@clowk/phlex",
+  "version": "0.0.0",
+  "description": "Behavior + styles for clowk-phlex — Stimulus controllers and the precompiled stylesheet for the clowk-phlex Ruby gem's chart components.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Thadeu Esteves",
+  "homepage": "https://github.com/clowk/clowk-phlex",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clowk/clowk-phlex.git",
+    "directory": "npm"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/clowk-phlex.js"
+    },
+    "./clowk-phlex.css": "./dist/clowk-phlex.css"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "pnpm run build:js && pnpm run build:css",
+    "build:js": "esbuild src/index.js --bundle --format=esm --outfile=dist/clowk-phlex.js --external:@hotwired/stimulus --external:@hotwired/turbo-rails --external:sortablejs",
+    "build:css": "tailwindcss -i build/tailwind.css -o dist/clowk-phlex.css --minify",
+    "test": "node build/smoke.mjs"
+  },
+  "peerDependencies": {
+    "@hotwired/stimulus": ">=3",
+    "@hotwired/turbo-rails": ">=7"
+  },
+  "dependencies": {
+    "sortablejs": "^1.15.7"
+  },
+  "devDependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.0",
+    "@tailwindcss/cli": "^4.0.0",
+    "esbuild": "^0.24.0",
+    "tailwindcss": "^4.0.0"
+  }
+}

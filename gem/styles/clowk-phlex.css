@@ -113,7 +113,7 @@
   --clowk-mix-fg: #000000;
 }
 
-/* Tailwind v4 mapping — utilities read the --color-*/--radius-*/--font-* tokens,
+/* Tailwind v4 mapping — the color / radius / font utilities read these tokens,
  * which point back at the raw palette above. Override --clowk-* to retheme. */
 @theme {
   --color-clowk-bg: var(--clowk-bg);
