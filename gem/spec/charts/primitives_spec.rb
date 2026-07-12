@@ -35,6 +35,27 @@ RSpec.describe "Chart primitives" do
       expect(html).to include("var(--clowk-red)")   # jobs at 93%
       expect(html).to include("46%")
     end
+
+    it "renders a simple breakdown variant: dot + title/total, no threshold, value-only rows" do
+      html = described_class.new(
+        title: "Cost Breakdown", total_label: "$0.011", dot: true, threshold: false,
+        bars: [
+          {label: "Speech to Text", pct: 45, value_label: "$0.005", color: "#7E97FF"},
+          {label: "LLM", pct: 36, value_label: "$0.004", color: "#B36CF6"}
+        ]
+      ).call
+
+      expect(html).to include("Cost Breakdown")
+      expect(html).to include("Total ")
+      expect(html).to include("$0.011")
+      expect(html).to include("Speech to Text")
+      expect(html).to include("$0.005")
+      # dot swatch present
+      expect(html).to include("background: #7E97FF")
+      # threshold off → no amber/red tint even though a bar could exceed a threshold
+      expect(html).not_to include("var(--clowk-red)")
+      expect(html).not_to include("var(--clowk-amber)")
+    end
   end
 
   describe Clowk::Phlex::Charts::Sparkline do
