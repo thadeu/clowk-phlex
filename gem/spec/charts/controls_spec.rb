@@ -3,7 +3,7 @@
 RSpec.describe "Dashboard controls" do
   describe Clowk::Phlex::Charts::RangePicker do
     it "renders preset pills + custom chip, host base_path injected" do
-      html = described_class.new(range: "7d", base_path: "/metrics", extra_params: { interval: "1m" }).call
+      html = described_class.new(range: "7d", base_path: "/metrics", extra_params: {interval: "1m"}).call
 
       expect(html).to include('data-controller="time-range-filter"')
       expect(html).to include('action="/metrics"')
@@ -14,7 +14,7 @@ RSpec.describe "Dashboard controls" do
 
   describe Clowk::Phlex::Charts::IntervalPicker do
     it "renders an interval dropdown carrying extra params in row URLs" do
-      html = described_class.new(current: "auto", base_path: "/metrics", extra_params: { range: "1h" }).call
+      html = described_class.new(current: "auto", base_path: "/metrics", extra_params: {range: "1h"}).call
 
       expect(html).to include('data-controller="dropdown"')
       expect(html).to include("every")
@@ -36,8 +36,8 @@ RSpec.describe "Dashboard controls" do
   describe Clowk::Phlex::Charts::DisplaySettings do
     it "renders visibility tiles + columns picker + Update, keyed by kind" do
       html = described_class.new(kind: "metrics", items: [
-        { metric: "host_cpu", label: "HOST · CPU", color: "#5B8DEF", unit: "%", default_visible: true },
-        { metric: "host_mem", label: "HOST · MEM", color: "#3FD08C", unit: "%", default_visible: true }
+        {metric: "host_cpu", label: "HOST · CPU", color: "#5B8DEF", unit: "%", default_visible: true},
+        {metric: "host_mem", label: "HOST · MEM", color: "#3FD08C", unit: "%", default_visible: true}
       ]).call
 
       expect(html).to include('data-controller="metrics-display-settings"')

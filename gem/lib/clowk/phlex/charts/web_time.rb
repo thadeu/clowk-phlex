@@ -14,7 +14,7 @@ module Clowk
 
         def zone_name
           (defined?(Time.zone) && Time.zone&.name) || DEFAULT_ZONE_NAME
-        rescue StandardError
+        rescue
           DEFAULT_ZONE_NAME
         end
 
@@ -22,7 +22,7 @@ module Clowk
         # nil on bad input so views render "—" instead of 500-ing.
         def strftime(time, pattern)
           time&.strftime(pattern)
-        rescue StandardError
+        rescue
           nil
         end
       end

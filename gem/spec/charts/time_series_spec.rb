@@ -8,7 +8,7 @@ RSpec.describe Clowk::Phlex::Charts::TimeSeries do
     (0...n).map do |i|
       v = [(10 + 8 * Math.sin(i * 0.4)).round(2), 0].max
 
-      { ts: (anchor - (n - 1 - i) * 3600).iso8601, value: v, formatted: v.to_s }
+      {ts: (anchor - (n - 1 - i) * 3600).iso8601, value: v, formatted: v.to_s}
     end
   end
 
@@ -34,8 +34,8 @@ RSpec.describe Clowk::Phlex::Charts::TimeSeries do
 
   it "renders multi-series grouped bars, one indexed rect per series" do
     series = [
-      { label: "api", color: "#5B8DEF", points: points },
-      { label: "jobs", color: "#F0619A", points: points }
+      {label: "api", color: "#5B8DEF", points: points},
+      {label: "jobs", color: "#F0619A", points: points}
     ]
 
     html = described_class.new(
@@ -48,7 +48,7 @@ RSpec.describe Clowk::Phlex::Charts::TimeSeries do
   end
 
   it "renders an interactive legend for multi-series (toggle + highlight)" do
-    series = [{ label: "api", color: "#5B8DEF", current: 0.18, points: points }]
+    series = [{label: "api", color: "#5B8DEF", current: 0.18, points: points}]
 
     html = described_class.new(
       points: [], series: series, color: "#5B8DEF", unit: "%", label: "CPU", range_ms: 86_400_000

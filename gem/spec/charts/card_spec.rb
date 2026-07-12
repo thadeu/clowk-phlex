@@ -7,7 +7,7 @@ RSpec.describe "Chart assemblies" do
     (0...n).map do |i|
       v = [(10 + 8 * Math.sin(i * 0.4)).round(2), 0].max
 
-      { ts: (anchor - (n - 1 - i) * 3600).iso8601, value: v, formatted: v.to_s }
+      {ts: (anchor - (n - 1 - i) * 3600).iso8601, value: v, formatted: v.to_s}
     end
   end
 
@@ -49,8 +49,8 @@ RSpec.describe "Chart assemblies" do
         label: "PODS · MEM", color: "#5B8DEF", unit: "GB", chart_type: "gauge_linear",
         range_ms: 86_400_000,
         gauge_bars: [
-          { label: "api", pct: 46, value_label: "3.7 GB", capacity_label: "8 GB", color: "#5B8DEF" },
-          { label: "jobs", pct: 93, value_label: "7.4 GB", capacity_label: "8 GB", color: "#E8B24B" }
+          {label: "api", pct: 46, value_label: "3.7 GB", capacity_label: "8 GB", color: "#5B8DEF"},
+          {label: "jobs", pct: 93, value_label: "7.4 GB", capacity_label: "8 GB", color: "#E8B24B"}
         ]
       ).call
 
@@ -84,12 +84,12 @@ RSpec.describe "Chart assemblies" do
         label: "3 PODS · REQ", color: "#3FD08C", formatted: "—", range: "7d", metric: "pods_req",
         range_ms: 86_400_000,
         numbers: [
-          { label: "api", color: "#5B8DEF", formatted: "842", value: 842 },
-          { label: "jobs", color: "#B36CF6", formatted: "391", value: 391 }
+          {label: "api", color: "#5B8DEF", formatted: "842", value: 842},
+          {label: "jobs", color: "#B36CF6", formatted: "391", value: 391}
         ],
         series: [
-          { label: "api", color: "#5B8DEF", points: points },
-          { label: "jobs", color: "#B36CF6", points: points }
+          {label: "api", color: "#5B8DEF", points: points},
+          {label: "jobs", color: "#B36CF6", points: points}
         ]
       ).call
 

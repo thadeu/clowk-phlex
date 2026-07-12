@@ -27,8 +27,8 @@ RSpec.describe "Chart primitives" do
 
     it "stacks N bars in multi mode, amber past 70% / red past 90%" do
       html = described_class.new(bars: [
-        { label: "api", pct: 46, value_label: "3.7 GB", capacity_label: "8 GB", color: "#5B8DEF" },
-        { label: "jobs", pct: 93, value_label: "7.4 GB", capacity_label: "8 GB", color: "#E8B24B" }
+        {label: "api", pct: 46, value_label: "3.7 GB", capacity_label: "8 GB", color: "#5B8DEF"},
+        {label: "jobs", pct: 93, value_label: "7.4 GB", capacity_label: "8 GB", color: "#E8B24B"}
       ]).call
 
       expect(html).to include("api")

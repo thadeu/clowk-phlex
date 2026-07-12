@@ -27,8 +27,12 @@ mise install        # or: asdf install
 ```bash
 cd gem
 bundle install
-bundle exec rspec
+bundle exec rake          # rspec + standardrb
+bundle exec standardrb --fix   # auto-format
 ```
+
+Ruby is linted with [StandardRB](https://github.com/standardrb/standard); the
+release CI gates on it, so keep `bundle exec standardrb` clean.
 
 Components are Phlex classes under `Clowk::Phlex::{Charts,UI}`. They emit static
 utility classes (`bg-clowk-surface`, …) — never build class names by

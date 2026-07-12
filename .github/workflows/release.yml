@@ -49,7 +49,11 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm build   # bundles src/** and scans ../gem/lib/**/*.rb → dist/clowk-phlex.css
 
-      # ── Test ──────────────────────────────────────────────────────────────
+      # ── Lint + Test ───────────────────────────────────────────────────────
+      - name: Lint gem (standardrb)
+        working-directory: gem
+        run: bundle exec standardrb
+
       - name: Test gem
         working-directory: gem
         run: bundle exec rspec
