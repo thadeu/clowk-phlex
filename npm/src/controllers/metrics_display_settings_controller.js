@@ -65,9 +65,21 @@ export default class extends Controller {
     const order = this.cardTargets.map(c => c.dataset.metric)
 
     const store = getJSON(KEYS.display, {})
+    const prevCols = store[this.kindValue]?.cols
 
     store[this.kindValue] = { hidden, order, cols: this.cols }
     setJSON(KEYS.display, store)
+
+    // Picking a column count is a "lay it out in N uniform columns" intent, so
+    // it must supersede any manual per-card resize spans — otherwise the stored
+    // sizes win and the column change looks like it did nothing. Only reset when
+    // the count actually changed, so a pure visibility/order update keeps sizes.
+    if (this.cols !== prevCols) {
+      const sizes = getJSON(KEYS.sizes, {})
+
+      delete sizes[this.kindValue]
+      setJSON(KEYS.sizes, sizes)
+    }
 
     window.dispatchEvent(new CustomEvent("metrics-display:changed"))
     this.flashUpdate()

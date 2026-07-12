@@ -48,4 +48,32 @@ describe("metrics-display-settings controller", () => {
 
     window.removeEventListener("metrics-display:changed", listener)
   })
+
+  it("resets per-card resize spans when the column count changes", async () => {
+    // simulate a prior manual resize + a prior column choice
+    sessionStorage.setItem(KEYS.sizes, JSON.stringify({ metrics: { a: 20, b: 40 } }))
+    sessionStorage.setItem(KEYS.display, JSON.stringify({ metrics: { hidden: [], order: [], cols: 3 } }))
+
+    const { element } = await mount("metrics-display-settings", MetricsDisplaySettings, HTML)
+
+    element.querySelector('[data-cols="2"]').click() // change 3 -> 2
+    element.querySelector('[data-role="update-btn"]').click()
+
+    // the stored resize spans for this kind are cleared, so cols wins
+    expect(getJSON(KEYS.sizes).metrics).toBeUndefined()
+    expect(getJSON(KEYS.display).metrics.cols).toBe(2)
+  })
+
+  it("keeps per-card resize spans when only visibility/order changes (cols unchanged)", async () => {
+    sessionStorage.setItem(KEYS.sizes, JSON.stringify({ metrics: { a: 20 } }))
+    sessionStorage.setItem(KEYS.display, JSON.stringify({ metrics: { hidden: [], order: [], cols: 2 } }))
+
+    const { element } = await mount("metrics-display-settings", MetricsDisplaySettings, HTML)
+
+    element.querySelector('[data-metric="b"]').click() // toggle visibility only
+    element.querySelector('[data-role="update-btn"]').click()
+
+    // cols didn't change (still 2) → sizes preserved
+    expect(getJSON(KEYS.sizes).metrics).toEqual({ a: 20 })
+  })
 })
