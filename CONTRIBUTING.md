@@ -45,7 +45,8 @@ interpolation, or the CSS precompile can't find them. Truly dynamic values
 cd npm
 pnpm install
 pnpm build      # bundles JS + precompiles clowk-phlex.css into dist/
-pnpm test
+pnpm smoke      # post-build sanity check on dist/
+pnpm test       # vitest unit tests (jsdom) — controllers + lib helpers
 ```
 
 ### The CSS precompile

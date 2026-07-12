@@ -27,5 +27,11 @@ The `clowk-phlex` gem and the `@clowk/phlex` npm package share this version.
   components across the monorepo — consumers need no Tailwind `@source`. JS
   bundled with esbuild (Stimulus / Turbo / sortablejs kept external).
 - **docs**: `docs/API.md` — component catalog + the host-owns-containers contract.
+- **npm tests**: Vitest (jsdom) unit suite — lib helpers (storage, chart_storage,
+  panel_prefs) + Stimulus controllers (dropdown, metrics-section, panel-options,
+  number-card, metrics-display, metrics-display-settings) mounted in a real
+  Stimulus app. 22 tests. CI runs build → smoke → vitest.
+- **gem lint**: StandardRB (`.standard.yml`, rake default = spec + standard),
+  plus a `.rubocop.yml` that defers a stray editor RuboCop to Standard's rules.
 
 [Unreleased]: https://github.com/clowk/clowk-phlex/commits/main

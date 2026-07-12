@@ -58,7 +58,11 @@ jobs:
         working-directory: gem
         run: bundle exec rspec
 
-      - name: Test npm
+      - name: Smoke npm build
+        working-directory: npm
+        run: pnpm smoke
+
+      - name: Test npm (vitest)
         working-directory: npm
         run: pnpm test
 
