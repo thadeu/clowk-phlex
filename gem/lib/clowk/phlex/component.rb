@@ -12,6 +12,21 @@ module Clowk
     class Component < ::Phlex::HTML
       private
 
+      # icon — render a vendored Heroicon (outline) by name. Replaces the
+      # PhlexIcons dependency; extra attrs (class:, aria, …) flow to the <svg>.
+      #
+      #   icon(:ellipsis_vertical, class: "w-4 h-4")
+      def icon(name, **attrs)
+        d = Clowk::Phlex::UI::Icons::PATHS.fetch(name.to_sym) do
+          raise ArgumentError, "unknown clowk icon: #{name.inspect}"
+        end
+
+        svg(
+          xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24",
+          "stroke-width": "1.5", stroke: "currentColor", "aria-hidden": "true", **attrs
+        ) { |s| s.path("stroke-linecap": "round", "stroke-linejoin": "round", d: d) }
+      end
+
       # tokens — merge CSS class strings, dropping nil / false / empty, so call
       # sites can write `tokens("px-3", active && "bg-clowk-accent-dim")` without
       # the compact+join dance.
