@@ -1,0 +1,156 @@
+/*
+ * clowk-phlex design tokens.
+ *
+ * Two layers:
+ *   1. :root (+ [data-theme="light"]) define the raw palette --clowk-* — the
+ *      values a HOST overrides to retheme. Components reference these directly
+ *      inside SVG / inline styles (e.g. var(--clowk-border)).
+ *   2. @theme re-maps them to --color-* / --radius-* / --font-* so Tailwind v4
+ *      generates the utilities the components use (bg-clowk-*, text-clowk-*,
+ *      rounded-clowk-*, font-clowk-*).
+ *
+ * This file is the SOURCE. The npm build precompiles it (scanning the gem's
+ * components) into dist/clowk-phlex.css so consumers import a ready stylesheet
+ * with no Tailwind @source of their own.
+ */
+
+:root {
+  /* Surfaces */
+  --clowk-bg: #0b0a0c;
+  --clowk-bg-2: #0d0c0f;
+  --clowk-surface: #121116;
+  --clowk-surface-2: #161419;
+  --clowk-surface-3: #1e1b23;
+  --clowk-surface-side: #0d0c0f;
+
+  /* Borders */
+  --clowk-border: #201d26;
+  --clowk-border-2: #33303b;
+
+  /* Text */
+  --clowk-text: #f4f1ee;
+  --clowk-text-2: #c9c4cf;
+  --clowk-muted: #8a8592;
+  --clowk-muted-2: #57525f;
+
+  /* Accent */
+  --clowk-accent: #5b8def;
+  --clowk-accent-2: #84a9f4;
+  --clowk-accent-dim: #5b8def26;
+  --clowk-accent-line: #5b8def66;
+
+  /* Cream (primary button fill) */
+  --clowk-cream: #f4f1ee;
+  --clowk-cream-2: #e6e2dd;
+  --clowk-on-cream: #14121a;
+
+  /* Status */
+  --clowk-green: #3fd08c;
+  --clowk-green-dim: #3fd08c26;
+  --clowk-amber: #e8b24b;
+  --clowk-amber-dim: #e8b24b26;
+  --clowk-red: #e0574b;
+  --clowk-red-dim: #e0574b26;
+  --clowk-blue: #7e97ff;
+
+  /* Extended series palette */
+  --clowk-teal: #3fd08c;
+  --clowk-cyan: #4fc3d9;
+  --clowk-indigo: #7e97ff;
+  --clowk-orange: #e8b24b;
+  --clowk-pink: #e06bb0;
+  --clowk-purple: #b36cf6;
+  --clowk-violet: #b36cf6;
+
+  /* Radius */
+  --clowk-r-sm: 3px;
+  --clowk-r-md: 9px;
+  --clowk-r-lg: 14px;
+
+  /* Utility */
+  --clowk-hover: #ffffff0a;
+  --clowk-mix-fg: #ffffff;
+  --clowk-on-accent: #ffffff;
+
+  /* Shadows */
+  --clowk-shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.55);
+  --clowk-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.55);
+
+  /* Type */
+  --clowk-font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --clowk-font-display: "Space Grotesk", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --clowk-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --clowk-font-size-base: 14px;
+  --clowk-line-height: 1.45;
+}
+
+:root[data-theme="light"] {
+  --clowk-bg: #f5f3f0;
+  --clowk-bg-2: #efede9;
+  --clowk-surface: #ffffff;
+  --clowk-surface-2: #f6f4f1;
+  --clowk-surface-3: #edeae6;
+  --clowk-surface-side: #faf9f7;
+
+  --clowk-border: #e4e0da;
+  --clowk-border-2: #d3cec6;
+
+  --clowk-text: #1a1820;
+  --clowk-text-2: #45414c;
+  --clowk-muted: #6d6875;
+  --clowk-muted-2: #948f9c;
+
+  --clowk-accent: #3f6fd6;
+  --clowk-accent-2: #2c55b8;
+  --clowk-accent-dim: #3f6fd618;
+  --clowk-accent-line: #3f6fd655;
+
+  --clowk-cream: #1a1820;
+  --clowk-cream-2: #33303b;
+  --clowk-on-cream: #ffffff;
+
+  --clowk-hover: #0000000a;
+  --clowk-mix-fg: #000000;
+}
+
+/* Tailwind v4 mapping — utilities read the --color-*/--radius-*/--font-* tokens,
+ * which point back at the raw palette above. Override --clowk-* to retheme. */
+@theme {
+  --color-clowk-bg: var(--clowk-bg);
+  --color-clowk-bg-2: var(--clowk-bg-2);
+  --color-clowk-surface: var(--clowk-surface);
+  --color-clowk-surface-2: var(--clowk-surface-2);
+  --color-clowk-surface-3: var(--clowk-surface-3);
+  --color-clowk-surface-side: var(--clowk-surface-side);
+  --color-clowk-border: var(--clowk-border);
+  --color-clowk-border-2: var(--clowk-border-2);
+  --color-clowk-text: var(--clowk-text);
+  --color-clowk-text-2: var(--clowk-text-2);
+  --color-clowk-muted: var(--clowk-muted);
+  --color-clowk-muted-2: var(--clowk-muted-2);
+  --color-clowk-accent: var(--clowk-accent);
+  --color-clowk-accent-2: var(--clowk-accent-2);
+  --color-clowk-accent-dim: var(--clowk-accent-dim);
+  --color-clowk-accent-line: var(--clowk-accent-line);
+  --color-clowk-cream: var(--clowk-cream);
+  --color-clowk-cream-2: var(--clowk-cream-2);
+  --color-clowk-on-cream: var(--clowk-on-cream);
+  --color-clowk-green: var(--clowk-green);
+  --color-clowk-green-dim: var(--clowk-green-dim);
+  --color-clowk-amber: var(--clowk-amber);
+  --color-clowk-amber-dim: var(--clowk-amber-dim);
+  --color-clowk-red: var(--clowk-red);
+  --color-clowk-red-dim: var(--clowk-red-dim);
+  --color-clowk-blue: var(--clowk-blue);
+  --color-clowk-purple: var(--clowk-purple);
+  --color-clowk-pink: var(--clowk-pink);
+  --color-clowk-hover: var(--clowk-hover);
+
+  --radius-clowk-sm: var(--clowk-r-sm);
+  --radius-clowk-md: var(--clowk-r-md);
+  --radius-clowk-lg: var(--clowk-r-lg);
+
+  --font-clowk-sans: var(--clowk-font-sans);
+  --font-clowk-display: var(--clowk-font-display);
+  --font-clowk-mono: var(--clowk-font-mono);
+}
