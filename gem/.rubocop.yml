@@ -1,0 +1,17 @@
+# This project lints with StandardRB — run `bundle exec standardrb`.
+#
+# This file exists ONLY so a stray RuboCop (e.g. an editor extension that runs
+# plain `rubocop`) defers to Standard's exact ruleset instead of RuboCop's
+# defaults. Without it, the editor flags offenses Standard doesn't enforce
+# (compact class style, etc.) and mis-parses modern syntax. There is no separate
+# RuboCop config to maintain — Standard is the single source of truth.
+inherit_gem:
+  standard: config/base.yml
+
+plugins:
+  - standard-custom
+  - standard-performance
+
+AllCops:
+  TargetRubyVersion: 3.2
+  SuggestExtensions: false
