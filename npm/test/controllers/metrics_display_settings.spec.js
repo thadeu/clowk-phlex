@@ -49,19 +49,19 @@ describe("metrics-display-settings controller", () => {
     window.removeEventListener("metrics-display:changed", listener)
   })
 
-  it("resets per-card resize spans when the column count changes", async () => {
-    // simulate a prior manual resize + a prior column choice
+  it("resets per-card resize spans when a column count is picked (even the same one)", async () => {
+    // prior manual resize + the column already at 3
     sessionStorage.setItem(KEYS.sizes, JSON.stringify({ metrics: { a: 20, b: 40 } }))
     sessionStorage.setItem(KEYS.display, JSON.stringify({ metrics: { hidden: [], order: [], cols: 3 } }))
 
     const { element } = await mount("metrics-display-settings", MetricsDisplaySettings, HTML)
 
-    element.querySelector('[data-cols="2"]').click() // change 3 -> 2
+    element.querySelector('[data-cols="3"]').click() // re-pick the SAME count (3)
     element.querySelector('[data-role="update-btn"]').click()
 
-    // the stored resize spans for this kind are cleared, so cols wins
+    // still resets — picking a column is the intent, not a value change
     expect(getJSON(KEYS.sizes).metrics).toBeUndefined()
-    expect(getJSON(KEYS.display).metrics.cols).toBe(2)
+    expect(getJSON(KEYS.display).metrics.cols).toBe(3)
   })
 
   it("keeps per-card resize spans when only visibility/order changes (cols unchanged)", async () => {

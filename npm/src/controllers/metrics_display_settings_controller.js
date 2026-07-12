@@ -53,6 +53,10 @@ export default class extends Controller {
 
   selectCols(event) {
     this.cols = parseInt(event.currentTarget.dataset.cols, 10) || 2
+    // Any click on a column button is an explicit "lay it out uniformly" intent
+    // — even re-picking the current count — so the next save resets manual
+    // resizes. (Tracking a change in value alone missed the re-pick case.)
+    this.colsTouched = true
     this.paintCols()
   }
 
@@ -65,20 +69,21 @@ export default class extends Controller {
     const order = this.cardTargets.map(c => c.dataset.metric)
 
     const store = getJSON(KEYS.display, {})
-    const prevCols = store[this.kindValue]?.cols
 
     store[this.kindValue] = { hidden, order, cols: this.cols }
     setJSON(KEYS.display, store)
 
     // Picking a column count is a "lay it out in N uniform columns" intent, so
     // it must supersede any manual per-card resize spans — otherwise the stored
-    // sizes win and the column change looks like it did nothing. Only reset when
-    // the count actually changed, so a pure visibility/order update keeps sizes.
-    if (this.cols !== prevCols) {
+    // sizes win and the column change looks like it did nothing. Reset whenever
+    // the operator touched the Columns picker this session; a pure
+    // visibility/order update leaves resizes intact.
+    if (this.colsTouched) {
       const sizes = getJSON(KEYS.sizes, {})
 
       delete sizes[this.kindValue]
       setJSON(KEYS.sizes, sizes)
+      this.colsTouched = false
     }
 
     window.dispatchEvent(new CustomEvent("metrics-display:changed"))
