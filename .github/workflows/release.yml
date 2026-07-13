@@ -2,12 +2,13 @@
 # runs both test suites, publishes the gem + npm package, and attaches the
 # packaged artifacts to the GitHub release.
 #
-# Secrets required:
-#   RUBYGEMS_API_KEY  — RubyGems push key
-#   NPM_TOKEN         — npm automation token (publish)
+# Publishing:
+#   gem → RubyGems via Trusted Publishing (OIDC) — no secret; configure a
+#         Trusted Publisher for the gem on rubygems.org (pending publisher for a
+#         first release). Sidesteps API-key MFA/OTP prompts entirely.
+#   npm → uses NPM_TOKEN — must be an *automation* token (bypasses npm 2FA in CI).
 #
-# Both packages are populated (gem: Phlex components; npm: controllers + CSS
-# build). Pushing a vX.Y.Z tag runs it; publish steps need the two secrets set.
+# Pushing a vX.Y.Z tag runs it.
 name: release
 
 on:
@@ -21,6 +22,9 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    # Fail fast instead of hanging (e.g. a publish step waiting on an interactive
+    # MFA/OTP prompt).
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -73,10 +77,15 @@ jobs:
         run: pnpm test
 
       # ── Publish ───────────────────────────────────────────────────────────
+      # RubyGems Trusted Publishing (OIDC) — no API key, no MFA/OTP prompt.
+      # Requires a Trusted Publisher configured for this gem on rubygems.org
+      # (owner=clowk, repo=clowk-phlex, workflow=release.yml). For a brand-new
+      # gem, add a *pending* trusted publisher first; the first push creates it.
+      - name: Configure RubyGems credentials (OIDC)
+        uses: rubygems/configure-rubygems-credentials@main
+
       - name: Publish gem → RubyGems
         working-directory: gem
-        env:
-          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
         run: |
           gem build clowk-phlex.gemspec
           gem push clowk-phlex-*.gem
