@@ -3,7 +3,7 @@
 import { readFileSync } from "node:fs"
 
 const js = readFileSync(new URL("../dist/clowk-phlex.js", import.meta.url), "utf8")
-const css = readFileSync(new URL("../dist/clowk-phlex.css", import.meta.url), "utf8")
+const css = readFileSync(new URL("../dist/core.css", import.meta.url), "utf8")
 
 const checks = [
   ["JS exports registerClowkPhlex", js.includes("registerClowkPhlex")],

@@ -8,6 +8,23 @@ The `clowk-phlex` gem and the `@clowk/phlex` npm package share this version.
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-07-13
+
+### Changed
+- The stylesheet is now exported at a single canonical subpath,
+  `@clowk/phlex/core` (extensionless) — the foundation you always import; future
+  modules (`./charts`, …) would be added alongside it. The `0.1.2` aliases
+  `./style.css` and `./clowk-phlex.css` are removed — one path, no redundancy.
+  **Breaking** for anyone importing the old paths (update to `@clowk/phlex/core`).
+
+### Fixed
+- Docs: the Tailwind integration must declare the layer order
+  `@layer theme, base, components, clowk, utilities;` — `clowk` has to sit ABOVE
+  `base` (so `.border-clowk-border` beats the preflight `*{border:0 solid}` reset
+  instead of falling back to a white currentColor border) and BELOW `utilities`.
+  The earlier "import before tailwindcss" guidance placed it below `base` and
+  produced white borders. The shipped stylesheet is unchanged.
+
 ## [0.1.2] - 2026-07-13
 
 ### Changed
@@ -71,7 +88,8 @@ end-to-end by consuming it back in that app.
   `total_label`) for cost/usage bars; the settings drawer resets per-card resize
   spans when a column count is picked so the choice always applies.
 
-[Unreleased]: https://github.com/thadeu/clowk-phlex/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/thadeu/clowk-phlex/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/thadeu/clowk-phlex/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/thadeu/clowk-phlex/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/thadeu/clowk-phlex/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/thadeu/clowk-phlex/releases/tag/v0.1.0

@@ -9,7 +9,7 @@ version-locked, and meet only at runtime through `data-*` attributes:
 | Artifact | Registry | Ships |
 | --- | --- | --- |
 | `clowk-phlex` | RubyGems | Phlex view components (SVG/HTML markup) — **view only** |
-| `@clowk/phlex` | npm | Stimulus controllers + Turbo actions + precompiled `clowk-phlex.css` |
+| `@clowk/phlex` | npm | Stimulus controllers + Turbo actions + precompiled `core.css` |
 
 **Charts** is the first module (area / line / bars, single & multi-series,
 radial & linear gauges, number tiles, sparklines) with the full dashboard
@@ -38,8 +38,13 @@ registerClowkPhlex(application)
 
 ```css
 /* your stylesheet — self-contained, preflight-free, all in @layer clowk.
- * If you run Tailwind, import it before your own @import "tailwindcss". */
-@import "@clowk/phlex/style.css";
+ * If you run Tailwind, declare the layer order so `clowk` sits between `base`
+ * and `utilities` (above the preflight resets it must beat, below your own
+ * utilities it must not override), then import it. */
+@layer theme, base, components, clowk, utilities;
+
+@import "tailwindcss";
+@import "@clowk/phlex/core";
 ```
 
 ## Usage

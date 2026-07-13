@@ -1,6 +1,6 @@
 {
   "name": "@clowk/phlex",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Behavior + styles for clowk-phlex — Stimulus controllers and the precompiled stylesheet for the clowk-phlex Ruby gem's chart components.",
   "type": "module",
   "license": "MIT",
@@ -18,8 +18,7 @@
     ".": {
       "import": "./dist/clowk-phlex.js"
     },
-    "./style.css": "./dist/clowk-phlex.css",
-    "./clowk-phlex.css": "./dist/clowk-phlex.css"
+    "./core": "./dist/core.css"
   },
   "sideEffects": [
     "*.css"
@@ -27,7 +26,7 @@
   "scripts": {
     "build": "pnpm run build:js && pnpm run build:css",
     "build:js": "esbuild src/index.js --bundle --format=esm --outfile=dist/clowk-phlex.js --external:@hotwired/stimulus --external:@hotwired/turbo-rails --external:sortablejs",
-    "build:css": "tailwindcss -i build/tailwind.css -o dist/clowk-phlex.css --minify",
+    "build:css": "tailwindcss -i build/tailwind.css -o dist/core.css --minify",
     "test": "vitest run",
     "test:watch": "vitest",
     "smoke": "node build/smoke.mjs"

@@ -10,7 +10,7 @@ the behavior and styles. They are version-locked and meet only at runtime throug
 | Artifact | Registry | Ships |
 | --- | --- | --- |
 | `clowk-phlex` | RubyGems | Phlex view components (SVG/HTML markup) — **view only** |
-| `@clowk/phlex` | npm | Stimulus controllers + Turbo actions + precompiled `clowk-phlex.css` |
+| `@clowk/phlex` | npm | Stimulus controllers + Turbo actions + precompiled `core.css` |
 
 ## Install
 
@@ -27,23 +27,25 @@ registerClowkPhlex(application)
 
 ### Styles
 
-`dist/clowk-phlex.css` is a self-contained, **preflight-free** stylesheet with
+`dist/core.css` is a self-contained, **preflight-free** stylesheet with
 everything wrapped in `@layer clowk` (tokens stay unlayered). Include it once.
 
-**If you run Tailwind yourself** (e.g. a Rails/Tailwind app), import it *before*
-your own `@import "tailwindcss"` so the `clowk` cascade layer is declared first
-and stays low-priority — its generic utilities then never override yours:
+**If you run Tailwind yourself** (e.g. a Rails/Tailwind app), declare the cascade
+layer order so `clowk` sits **between `base` and `utilities`**, then import it:
 
 ```css
-@import "@clowk/phlex/style.css";   /* first → @layer clowk is low-priority */
+@layer theme, base, components, clowk, utilities;
+
 @import "tailwindcss";
+@import "@clowk/phlex/core";
 ```
 
-Equivalently, declare the order explicitly and import anywhere:
-
-```css
-@layer clowk, theme, base, components, utilities;
-```
+The position matters in both directions: `clowk` must be **above `base`** so the
+library's own utilities beat Tailwind's preflight resets (otherwise
+`.border-clowk-border` loses to the `*{border:0 solid}` reset and renders a white
+`currentColor` border), and **below `utilities`** so its generic `.fixed`/`.hidden`
+never override your app's own responsive variants. Only an explicit `@layer`
+statement can place it in the middle — importing "before" or "after" can't.
 
 **If you don't run Tailwind**, just link/import it as a plain stylesheet — it
 carries the tokens plus the utilities the components use (no reset; bring your
@@ -59,7 +61,7 @@ markup; you don't wire anything up by hand.
 
 - **`dist/clowk-phlex.js`** — the Stimulus controllers + `registerClowkPhlex`,
   bundled with esbuild. Stimulus / Turbo / sortablejs are kept external (peer deps).
-- **`dist/clowk-phlex.css`** — the design tokens (`--clowk-*`) plus every utility
+- **`dist/core.css`** — the design tokens (`--clowk-*`) plus every utility
   class the Phlex components emit, precompiled by scanning the gem's components.
   Consumers need **no** Tailwind `@source` of the gem.
 
