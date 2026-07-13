@@ -31,6 +31,8 @@ jobs:
           working-directory: gem
 
       - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - uses: actions/setup-node@v4
         with:
@@ -44,7 +46,7 @@ jobs:
       - name: Sync version from tag
         run: |
           echo "${GITHUB_REF_NAME#v}" > VERSION
-          ./scripts/sync-version.sh
+          bash scripts/sync-version.sh
 
       # ── Build ─────────────────────────────────────────────────────────────
       - name: Build npm (JS bundle + precompiled CSS)
