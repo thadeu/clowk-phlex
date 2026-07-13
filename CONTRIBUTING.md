@@ -59,8 +59,11 @@ stylesheet with **no Tailwind `@source` required on their end**.
 
 ## Versioning
 
-`/VERSION` is the single source of truth. A prerelease step syncs it into the
-gemspec and `package.json` so the gem and npm package always match.
+`/VERSION` is the single source of truth. Bump it, then run
+`./scripts/sync-version.sh` to propagate it into `gem/lib/clowk/phlex/version.rb`
+(a static literal that ships in the gem) and `npm/package.json`. The release CI
+runs the same script from the pushed tag, so the gem and npm package always
+publish with matching versions.
 
 ## Releasing
 

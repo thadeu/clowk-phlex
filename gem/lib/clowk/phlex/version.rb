@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
+# Synced from the repo-root /VERSION by scripts/sync-version.sh (dev + release CI).
+# The gem and the @clowk/phlex npm package share this version — do not edit by
+# hand; bump /VERSION and re-run the script.
 module Clowk
   module Phlex
-    # VERSION is sourced from the repo-root /VERSION file (single source of truth
-    # shared with the @clowk/phlex npm package). In a packaged gem that file may
-    # not ship, so the release build bakes the value in; dev reads it live.
-    VERSION = begin
-      root = File.expand_path("../../../..", __dir__)
-      File.read(File.join(root, "VERSION")).strip
-    rescue Errno::ENOENT
-      "0.0.0"
-    end
+    VERSION = "0.1.0"
   end
 end

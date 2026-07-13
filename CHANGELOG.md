@@ -8,9 +8,14 @@ The `clowk-phlex` gem and the `@clowk/phlex` npm package share this version.
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-07-12
+
+First release — the chart toolkit extracted from the dialive app and validated
+end-to-end by consuming it back in that app.
+
 ### Added
 - Repository scaffold: monorepo layout (`gem/`, `npm/`, `docs/`, `skills/`),
-  shared `VERSION`, MIT license, release CI skeleton.
+  shared `VERSION` + `scripts/sync-version.sh`, MIT license, release CI.
 - **gem** foundation: `Clowk::Phlex` module + `Component` base (thin Phlex::HTML
   with `tokens` + vendored `icon` helper), `Charts::Format`, `Charts::WebTime`,
   design tokens (`styles/clowk-phlex.css`, `--clowk-*`, dark+light + @theme).
@@ -33,5 +38,9 @@ The `clowk-phlex` gem and the `@clowk/phlex` npm package share this version.
   Stimulus app. 22 tests. CI runs build → smoke → vitest.
 - **gem lint**: StandardRB (`.standard.yml`, rake default = spec + standard),
   plus a `.rubocop.yml` that defers a stray editor RuboCop to Standard's rules.
+- `GaugeLinear` multi gains a breakdown variant (`dot`, `threshold`, `title`,
+  `total_label`) for cost/usage bars; the settings drawer resets per-card resize
+  spans when a column count is picked so the choice always applies.
 
-[Unreleased]: https://github.com/clowk/clowk-phlex/commits/main
+[Unreleased]: https://github.com/clowk/clowk-phlex/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/clowk/clowk-phlex/releases/tag/v0.1.0
