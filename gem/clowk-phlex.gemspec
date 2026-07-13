@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
                      "(charts, gauges, pickers) that render SVG/HTML markup + " \
                      "data-* attributes. Behavior and styles ship via the " \
                      "companion @clowk/phlex npm package."
-  spec.homepage = "https://github.com/clowk/clowk-phlex"
+  spec.homepage = "https://github.com/thadeu/clowk-phlex"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2"
 

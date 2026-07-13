@@ -8,6 +8,13 @@ The `clowk-phlex` gem and the `@clowk/phlex` npm package share this version.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-13
+
+### Fixed
+- Point `repository.url` / `homepage` at `thadeu/clowk-phlex` so npm provenance
+  verification passes (it must match the repo the release runs from). npm 0.1.0
+  never published; 0.1.1 is the first npm release. Gem 0.1.0 already shipped.
+
 ## [0.1.0] - 2026-07-12
 
 First release — the chart toolkit extracted from the dialive app and validated
@@ -42,5 +49,6 @@ end-to-end by consuming it back in that app.
   `total_label`) for cost/usage bars; the settings drawer resets per-card resize
   spans when a column count is picked so the choice always applies.
 
-[Unreleased]: https://github.com/clowk/clowk-phlex/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/clowk/clowk-phlex/releases/tag/v0.1.0
+[Unreleased]: https://github.com/thadeu/clowk-phlex/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/thadeu/clowk-phlex/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/thadeu/clowk-phlex/releases/tag/v0.1.0

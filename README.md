@@ -76,7 +76,7 @@ clowk-phlex/
 ├─ gem/      # the Ruby gem (RubyGems)
 ├─ npm/      # the npm package (@clowk/phlex) — src + build; dist/ is gitignored
 ├─ docs/     # API reference + design decisions
-├─ skills/   # Agent Skill for `npx skills add clowk/clowk-phlex`
+├─ skills/   # Agent Skill for `npx skills add thadeu/clowk-phlex`
 └─ VERSION   # single source of truth for both artifacts
 ```
 

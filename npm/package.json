@@ -1,14 +1,14 @@
 {
   "name": "@clowk/phlex",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Behavior + styles for clowk-phlex — Stimulus controllers and the precompiled stylesheet for the clowk-phlex Ruby gem's chart components.",
   "type": "module",
   "license": "MIT",
   "author": "Thadeu Esteves",
-  "homepage": "https://github.com/clowk/clowk-phlex",
+  "homepage": "https://github.com/thadeu/clowk-phlex",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/clowk/clowk-phlex.git",
+    "url": "git+https://github.com/thadeu/clowk-phlex.git",
     "directory": "npm"
   },
   "files": [
