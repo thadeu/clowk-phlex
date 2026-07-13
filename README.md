@@ -84,7 +84,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the build & release flow.
 
 ## Status
 
-Early scaffolding — `0.0.0`. Not yet published.
+Published — [`clowk-phlex`](https://rubygems.org/gems/clowk-phlex) on RubyGems and
+[`@clowk/phlex`](https://www.npmjs.com/package/@clowk/phlex) on npm, version-locked.
+Charts is the first module; UI primitives migrate in next.
 
 ## License
 

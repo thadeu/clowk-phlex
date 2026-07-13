@@ -5,6 +5,6 @@
 # hand; bump /VERSION and re-run the script.
 module Clowk
   module Phlex
-    VERSION = "0.1.1"
+    VERSION = "0.1.2"
   end
 end

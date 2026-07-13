@@ -1,6 +1,6 @@
 {
   "name": "@clowk/phlex",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Behavior + styles for clowk-phlex — Stimulus controllers and the precompiled stylesheet for the clowk-phlex Ruby gem's chart components.",
   "type": "module",
   "license": "MIT",

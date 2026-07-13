@@ -8,6 +8,15 @@ The `clowk-phlex` gem and the `@clowk/phlex` npm package share this version.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-07-13
+
+### Added
+- npm package now ships a `README.md` so the npmjs.org page has install/usage docs
+  (the tarball previously shipped only `dist/`).
+
+### Changed
+- Root `README.md` status reflects the published state on both registries.
+
 ## [0.1.1] - 2026-07-13
 
 ### Fixed
@@ -49,6 +58,7 @@ end-to-end by consuming it back in that app.
   `total_label`) for cost/usage bars; the settings drawer resets per-card resize
   spans when a column count is picked so the choice always applies.
 
-[Unreleased]: https://github.com/thadeu/clowk-phlex/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/thadeu/clowk-phlex/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/thadeu/clowk-phlex/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/thadeu/clowk-phlex/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/thadeu/clowk-phlex/releases/tag/v0.1.0
