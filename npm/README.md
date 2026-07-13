@@ -21,10 +21,33 @@ pnpm add @clowk/phlex
 ```js
 // your Stimulus entrypoint
 import { registerClowkPhlex } from "@clowk/phlex"
-import "@clowk/phlex/clowk-phlex.css"   // precompiled — no Tailwind @source needed
 
 registerClowkPhlex(application)
 ```
+
+### Styles
+
+`dist/clowk-phlex.css` is a self-contained, **preflight-free** stylesheet with
+everything wrapped in `@layer clowk` (tokens stay unlayered). Include it once.
+
+**If you run Tailwind yourself** (e.g. a Rails/Tailwind app), import it *before*
+your own `@import "tailwindcss"` so the `clowk` cascade layer is declared first
+and stays low-priority — its generic utilities then never override yours:
+
+```css
+@import "@clowk/phlex/style.css";   /* first → @layer clowk is low-priority */
+@import "tailwindcss";
+```
+
+Equivalently, declare the order explicitly and import anywhere:
+
+```css
+@layer clowk, theme, base, components, utilities;
+```
+
+**If you don't run Tailwind**, just link/import it as a plain stylesheet — it
+carries the tokens plus the utilities the components use (no reset; bring your
+own `box-sizing` if you need one).
 
 `registerClowkPhlex(application)` registers every controller the chart components
 emit (`metrics-chart`, `metrics-display`, `metrics-display-settings`,

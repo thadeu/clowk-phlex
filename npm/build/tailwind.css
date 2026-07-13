@@ -1,17 +1,32 @@
 /*
- * CSS build entry for @clowk/phlex.
+ * CSS build entry for @clowk/phlex → dist/clowk-phlex.css.
  *
- * Compiles a self-contained dist/clowk-phlex.css by:
- *   1. pulling in Tailwind v4,
- *   2. importing the gem's design tokens (@theme + --clowk-* palette),
- *   3. scanning the gem's Phlex components for the utility classes they emit.
+ * This is a SELF-CONTAINED, drop-in stylesheet: any consumer includes it and is
+ * done — whether or not they run Tailwind themselves. Two deliberate choices make
+ * that safe:
  *
- * This is why the repo is a monorepo — @source reaches across into ../../gem/lib
- * so the build sees the Ruby components. Consumers import the compiled result
- * and need no Tailwind @source of their own.
+ *   1. NO preflight. We import only Tailwind's theme + utilities, never the reset.
+ *      A consumer's own base styles are left untouched, and there's no giant
+ *      duplicated reset when they already run Tailwind.
+ *
+ *   2. Everything Tailwind generates goes into `@layer clowk`. Cascade layers
+ *      always lose to unlayered rules and to later-declared layers, so the
+ *      library's generic utilities (.flex/.fixed/…) can never override a
+ *      consumer's own utilities (e.g. the app's responsive `vmd:relative`).
+ *      Consumers declare the order once — `@layer clowk, theme, base,
+ *      components, utilities;` — or simply import this file before their own
+ *      Tailwind entry.
+ *
+ * The design tokens (:root palette) stay UNLAYERED so the --clowk-* variables are
+ * always available regardless of layer ordering.
+ *
+ * @source reaches across the monorepo into ../../gem/lib so the build sees which
+ * utilities the Ruby components actually use and emits only those.
  */
 
-@import "tailwindcss";
+@import "tailwindcss/theme.css" layer(clowk);
+@import "tailwindcss/utilities.css" layer(clowk);
+
 @import "../../gem/styles/clowk-phlex.css";
 
 @source "../../gem/lib/**/*.rb";

@@ -32,9 +32,14 @@ pnpm add @clowk/phlex
 ```js
 // your Stimulus entrypoint
 import { registerClowkPhlex } from "@clowk/phlex"
-import "@clowk/phlex/clowk-phlex.css"   // precompiled — no Tailwind @source needed
 
 registerClowkPhlex(application)
+```
+
+```css
+/* your stylesheet — self-contained, preflight-free, all in @layer clowk.
+ * If you run Tailwind, import it before your own @import "tailwindcss". */
+@import "@clowk/phlex/style.css";
 ```
 
 ## Usage

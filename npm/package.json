@@ -18,6 +18,7 @@
     ".": {
       "import": "./dist/clowk-phlex.js"
     },
+    "./style.css": "./dist/clowk-phlex.css",
     "./clowk-phlex.css": "./dist/clowk-phlex.css"
   },
   "sideEffects": [

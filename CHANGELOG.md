@@ -10,12 +10,25 @@ The `clowk-phlex` gem and the `@clowk/phlex` npm package share this version.
 
 ## [0.1.2] - 2026-07-13
 
+### Changed
+- **`dist/clowk-phlex.css` is now a self-contained, drop-in stylesheet.** It is
+  compiled without Tailwind's preflight and with everything Tailwind generates
+  wrapped in `@layer clowk`. This makes it safe to include in an app that also
+  runs Tailwind: no duplicated reset, and the library's generic utilities
+  (`.flex`/`.fixed`/…) sit in a low-priority layer so they can never override the
+  consumer's own utilities (previously clowk's `.fixed` beat a consumer's
+  responsive `vmd:relative` and collapsed sidebars). Design tokens stay unlayered
+  so `--clowk-*` is always available. Tailwind consumers import it once, before
+  their own `@import "tailwindcss"` (or declare the layer order explicitly).
+
 ### Added
 - npm package now ships a `README.md` so the npmjs.org page has install/usage docs
   (the tarball previously shipped only `dist/`).
 
-### Changed
-- Root `README.md` status reflects the published state on both registries.
+### Note
+- A consumer no longer needs to `@source` the gem, run a second Tailwind build, or
+  ship any bridge — one `@import` of the precompiled stylesheet is the whole
+  integration.
 
 ## [0.1.1] - 2026-07-13
 
